@@ -23,6 +23,8 @@ function initializeGrid(gridSize) {
   container.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
   container.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
 
+  clearGrid(container);
+
   for(let x=0; x<gridSize; x++) {
     for(let y=0; y<gridSize; y++) {
       let divBox = document.createElement('div');
@@ -38,10 +40,15 @@ function initializeGrid(gridSize) {
   }
 }
 
+function clearGrid(gridContainer) {
+  while(gridContainer.firstChild) {
+    gridContainer.removeChild(gridContainer.lastChild);
+  }
+}
+
 function resetGrid() {
   let gridSize = window.prompt("How many squares per side? Default/Minimum is 16");
-  if(gridSize) initializeGrid(gridSize);
-  else initializeGrid(16);
+  gridSize ? initializeGrid(gridSize) : initializeGrid(DEFAULT_GRID_SIZE);
 }
 
 function drawBlack(e) {
