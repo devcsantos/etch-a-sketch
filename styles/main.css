@@ -1,0 +1,23 @@
+* , *:after, *:before {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+#main-header {
+  background-color: teal;
+  margin-bottom: 50px;
+}
+
+#container {
+  display: grid;
+  width: 500px;
+  height: 500px;
+}
