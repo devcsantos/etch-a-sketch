@@ -101,6 +101,10 @@ body {
   content: 'Want to play some tic-tac-toe instead?';
 }
 
+#shader-btn:hover ~ #control-information:after {
+  content: 'Keeps getting darker and darker until you can no longer see';
+}
+
 .active {
   background-color: #CE7DA5;
   transition: background-color 0.4s ease-out;

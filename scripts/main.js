@@ -1,4 +1,6 @@
 const DEFAULT_GRID_SIZE = 16;
+const COLOR_BLACK = 'rgb(0,0,0)';
+const COLOR_WHITE = 'rgb(255,255,255)';
 let mouseDraw;
 
 initializePage();
@@ -15,6 +17,7 @@ function initializeControlListeners() {
   let rainbowButton = document.getElementById('rainbow-btn');
   let precisionButton = document.getElementById('precision-btn');
   let eraserButton = document.getElementById('eraser-btn');
+  let shaderButton = document.getElementById('shader-btn');
   let drawingContainer = document.getElementById('container');
 
   resetButton.addEventListener('click', resetGrid);
@@ -25,6 +28,7 @@ function initializeControlListeners() {
     e.target.classList.add('active');+
     eraserButton.classList.remove('active');
     rainbowButton.classList.remove('active');
+    shaderButton.classList.remove('active');
     e.stopPropagation();
   });
   
@@ -32,6 +36,7 @@ function initializeControlListeners() {
     e.target.classList.add('active');
     pencilButton.classList.remove('active');
     eraserButton.classList.remove('active');
+    shaderButton.classList.remove('active');
     e.stopPropagation();
   });
 
@@ -39,6 +44,15 @@ function initializeControlListeners() {
     e.target.classList.add('active');
     pencilButton.classList.remove('active');
     rainbowButton.classList.remove('active');
+    shaderButton.classList.remove('active');
+    e.stopPropagation();
+  });
+
+  shaderButton.addEventListener('click', (e) => {
+    e.target.classList.add('active');
+    pencilButton.classList.remove('active');
+    rainbowButton.classList.remove('active');
+    eraserButton.classList.remove('active');
     e.stopPropagation();
   });
 
@@ -67,7 +81,7 @@ function initializeGrid(gridSize) {
   for(let x=0; x<gridSize; x++) {
     for(let y=0; y<gridSize; y++) {
       let divBox = document.createElement('div');
-      divBox.style.backgroundColor = 'white';
+      divBox.style.backgroundColor = COLOR_WHITE;
       divBox.addEventListener('mouseenter', drawColor);
       container.appendChild(divBox);
     }
@@ -142,6 +156,7 @@ function drawColor(e) {
   let pencilMode = document.getElementById('pencil-btn').classList.contains('active');
   let rainbowMode = document.getElementById('rainbow-btn').classList.contains('active');
   let eraserMode = document.getElementById('eraser-btn').classList.contains('active');
+  let shaderMode = document.getElementById('shader-btn').classList.contains('active');
   let isPrecisionMode = document.getElementById('precision-btn').classList.contains('active');
 
   if(isPrecisionMode) {
@@ -149,27 +164,43 @@ function drawColor(e) {
       if(pencilMode) drawBlack(e);
       if(rainbowMode) drawRandom(e);
       if(eraserMode) drawWhite(e);
+      if(shaderMode) drawShader(e);
     }
   } else {
     if(pencilMode) drawBlack(e);
     if(rainbowMode) drawRandom(e);
     if(eraserMode) drawWhite(e);
+    if(shaderMode) drawShader(e);
   }
+  e.stopPropagation();
 }
 
 function drawBlack(e) {
-  e.target.style.backgroundColor = 'black';
-  e.stopPropagation();
+  e.target.style.backgroundColor = COLOR_BLACK;
 }
 
 function drawWhite(e) {
-  e.target.style.backgroundColor = 'white';
-  e.stopPropagation();
+  e.target.style.backgroundColor = COLOR_WHITE;
 }
 
 function drawRandom(e) {
   e.target.style.backgroundColor = `rgb(${getRandomColor()},${getRandomColor()},${getRandomColor()})`;
-  e.stopPropagation();
+}
+
+function drawShader(e) {
+  let currentBackgroundColor = e.target.style.backgroundColor;
+  let RGB = currentBackgroundColor.slice(3).replace(/\(|\)/g,'').split(',');
+
+  let newR = RGB[0] - 25;
+  let newG = RGB[1] - 25;
+  let newB = RGB[2] - 25;
+
+  newR >= 0 ? newR = newR : newR = 0;
+  newG >= 0 ? newG = newG : newG = 0;
+  newB >= 0 ? newB = newB : newB = 0;
+
+  e.target.style.backgroundColor = `rgb(${newR},${newG},${newB})`;
+  console.log(e.target.style.backgroundColor);
 }
 
 function getRandomColor() {
