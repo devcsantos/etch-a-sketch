@@ -62,15 +62,41 @@ function resetGrid() {
 function toggleGridLines(e) {
   let gridBoxes = document.querySelectorAll('#container div');
   if(e.target.checked) {
-    for(let i=0; i<gridBoxes.length; i++) {
-      gridBoxes[i].classList.add('grid-lines');
-    }
+      drawGridLines(true, gridBoxes);
   } else {
     for(let i=0; i<gridBoxes.length; i++) {
       gridBoxes[i].classList.remove('grid-lines');
     }
   }
   e.stopPropagation();
+}
+
+function drawGridLines(add, gridBoxes) {
+  let gridSize = (gridBoxes.length)**(1/2) - 1;
+  
+  for(let i=0; i<gridBoxes.length; i++) {
+    if(i / (gridSize+1) < 1) { // top boxes
+      gridBoxes[i].classList.add('grid-lines');
+      gridBoxes[i].style.borderTopWidth = '0px';
+    }
+    if((i+1) % (gridSize+1) == 1) { // left-side boxes
+      gridBoxes[i].classList.add('grid-lines');
+      gridBoxes[i].style.borderLeftWidth = '0px';
+    }
+    if(Number.isInteger((i+1) / (gridSize+1))) { // right-hand side boxes
+      gridBoxes[i].classList.add('grid-lines');
+      gridBoxes[i].style.borderRightWidth = '0px';
+    }
+    if((i+1) / (gridSize+1) > gridSize) { // bottom boxes
+      gridBoxes[i].classList.add('grid-lines');
+      gridBoxes[i].style.borderBottomWidth = '0px';
+    }
+  }
+
+  for(let i=0; i<gridBoxes.length; i++) {
+    if(gridBoxes[i].classList.length < 1)
+      gridBoxes[i].classList.add('grid-lines');
+  }
 }
 
 function drawColor(e) {
