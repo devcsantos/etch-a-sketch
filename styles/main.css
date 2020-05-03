@@ -20,4 +20,5 @@ body {
   display: grid;
   width: 500px;
   height: 500px;
+  border: solid 2px black;
 }
