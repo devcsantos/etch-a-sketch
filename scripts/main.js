@@ -16,10 +16,12 @@ function initializeControlListeners() {
 
   resetButton.addEventListener('click', resetGrid);
   gridToggle.addEventListener('click', toggleGridLines);
+
   pencilButton.addEventListener('click', (e) =>{
     pencilMode = true;
     e.stopPropagation();
   });
+  
   rainbowButton.addEventListener('click', (e) =>{
     pencilMode = false;
     e.stopPropagation();
