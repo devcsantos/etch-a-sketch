@@ -1,4 +1,7 @@
 const DEFAULT_GRID_SIZE = 16;
+const ACTIVE_BUTTON_COLOR = '#CE7DA5';
+const INACTIVE_BUTTON_COLOR = '#BEE5BF';
+
 let pencilMode = true;
 
 initializePage();
@@ -19,11 +22,15 @@ function initializeControlListeners() {
 
   pencilButton.addEventListener('click', (e) =>{
     pencilMode = true;
+    e.target.style.backgroundColor = ACTIVE_BUTTON_COLOR;
+    rainbowButton.style.backgroundColor = INACTIVE_BUTTON_COLOR;
     e.stopPropagation();
   });
   
   rainbowButton.addEventListener('click', (e) =>{
     pencilMode = false;
+    e.target.style.backgroundColor = ACTIVE_BUTTON_COLOR;
+    pencilButton.style.backgroundColor = INACTIVE_BUTTON_COLOR;
     e.stopPropagation();
   });
 }
@@ -41,7 +48,7 @@ function initializeGrid(gridSize) {
   for(let x=0; x<gridSize; x++) {
     for(let y=0; y<gridSize; y++) {
       let divBox = document.createElement('div');
-      divBox.style.backgroundClip = 'white';
+      divBox.style.backgroundColor = 'white';
       divBox.addEventListener('mouseenter', drawColor);
       container.appendChild(divBox);
     }
@@ -62,8 +69,10 @@ function resetGrid() {
 function toggleGridLines(e) {
   let gridBoxes = document.querySelectorAll('#container div');
   if(e.target.checked) {
-      drawGridLines(true, gridBoxes);
+    e.target.parentElement.style.backgroundColor = ACTIVE_BUTTON_COLOR;
+    drawGridLines(true, gridBoxes);
   } else {
+    e.target.parentElement.style.backgroundColor = INACTIVE_BUTTON_COLOR;
     for(let i=0; i<gridBoxes.length; i++) {
       gridBoxes[i].classList.remove('grid-lines');
     }

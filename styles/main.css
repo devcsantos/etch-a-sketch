@@ -15,11 +15,22 @@ body {
   flex-direction: column;
   width: 100%;
   align-items: center;
+  background-color: #FFD1BA;
 }
 
 #main-header {
-  background-color: teal;
+  background-color: #493657;
   margin-bottom: 50px;
+  width: 100%;
+  text-align: center;
+  padding: 15px 0px;
+  box-shadow: 1px 1px 4px black;
+}
+
+#main-header h3 {
+  font-size: 34px;
+  color: white;
+  text-shadow: 1px 1px 10px black;
 }
 
 #container {
@@ -40,12 +51,17 @@ body {
   text-align: center;
   padding: 5px;
   border: solid 1px black;
-  color: white;
+  color: black;
   line-height: 32px;
-  background-color: rgba(109, 109, 221, 0.76);
+  background-color: #BEE5BF;
 }
 
 .control-btn:hover {
   box-shadow: 1px 1px 3px black;
+  background-color: #DFF3E3;
+  cursor: pointer;
+}
+
+.control-btn:hover * {
   cursor: pointer;
 }
