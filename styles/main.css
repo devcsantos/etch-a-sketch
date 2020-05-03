@@ -82,23 +82,23 @@ body {
 }
 
 #pencil-btn:hover ~ #control-information:after {
-  content: 'Uses black color to draw'
+  content: 'Uses black color to draw';
 }
 
 #rainbow-btn:hover ~ #control-information:after {
-  content: 'Uses the RAINBOW to complete your imagination'
+  content: 'Uses the RAINBOW to complete your imagination';
 }
 
 #eraser-btn:hover ~ #control-information:after {
-  content: 'Erases. No explanation needed'
+  content: 'Erases. No explanation needed';
 }
 
 #precision-btn:hover ~ #control-information:after {
-  content: 'Draw to your heart\'s content, just press and hold to draw instead, it\'s that easy'
+  content: 'Draw to your heart\'s content, just press and hold to draw instead, it\'s that easy';
 }
 
 #border-toggle:hover ~ #control-information:after {
-  content: 'Want to play some tic-tac-toe instead?'
+  content: 'Want to play some tic-tac-toe instead?';
 }
 
 .active {
