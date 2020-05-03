@@ -1,0 +1,2 @@
+# Etch-A-Sketch
+This project is made following https://www.theodinproject.com . This will make use of the following skills: HTML, CSS and JavaScript. The purpose of this project is to showcase how to manipulate DOM objects.
