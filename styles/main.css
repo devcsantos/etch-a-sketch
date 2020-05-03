@@ -22,3 +22,14 @@ body {
   height: 500px;
   border: solid 2px black;
 }
+
+.grid-lines {
+  border: solid 1px #DDDDDD;
+}
+
+.control-btn {
+  display: inline-block;
+  width: 100px;
+  line-height: 35px;
+  background-color: blue;
+}

@@ -1,22 +1,33 @@
 const DEFAULT_GRID_SIZE = 16;
+let pencilMode = true;
 
 initializePage();
 
-
-
 function initializePage() {
   initializeGrid(DEFAULT_GRID_SIZE);
-  initializeButtonListeners();
+  initializeControlListeners();
 }
 
-function initializeButtonListeners() {
+function initializeControlListeners() {
   let resetButton = document.getElementById('reset-btn');
+  let gridToggle = document.getElementById('border-toggle');
+  let pencilButton = document.getElementById('pencil-btn');
+  let rainbowButton = document.getElementById('rainbow-btn');
+
   resetButton.addEventListener('click', resetGrid);
+  gridToggle.addEventListener('click', toggleGridLines);
+  pencilButton.addEventListener('click', (e) =>{
+    pencilMode = true;
+    e.stopPropagation();
+  });
+  rainbowButton.addEventListener('click', (e) =>{
+    pencilMode = false;
+    e.stopPropagation();
+  });
 }
 
 
 function initializeGrid(gridSize) {
-  let rainbowCounter = 0;
   let container = document.getElementById('container');
   if(gridSize < DEFAULT_GRID_SIZE) gridSize = DEFAULT_GRID_SIZE;
 
@@ -28,15 +39,10 @@ function initializeGrid(gridSize) {
   for(let x=0; x<gridSize; x++) {
     for(let y=0; y<gridSize; y++) {
       let divBox = document.createElement('div');
-      let drawColor = drawBlack;
       divBox.style.backgroundClip = 'white';
-      if(rainbowCounter % 10 > 0) drawColor = drawRandom;
-      else drawColor = drawBlack;
       divBox.addEventListener('mouseenter', drawColor);
       container.appendChild(divBox);
-      rainbowCounter++;
     }
-    rainbowCounter++;
   }
 }
 
@@ -47,16 +53,36 @@ function clearGrid(gridContainer) {
 }
 
 function resetGrid() {
-  let gridSize = window.prompt("How many squares per side? Default/Minimum is 16");
+  let gridSize = window.prompt(`How many squares per side? Default/Minimum is ${DEFAULT_GRID_SIZE}`);
   gridSize ? initializeGrid(gridSize) : initializeGrid(DEFAULT_GRID_SIZE);
+}
+
+function toggleGridLines(e) {
+  let gridBoxes = document.querySelectorAll('#container div');
+  if(e.target.checked) {
+    for(let i=0; i<gridBoxes.length; i++) {
+      gridBoxes[i].classList.add('grid-lines');
+    }
+  } else {
+    for(let i=0; i<gridBoxes.length; i++) {
+      gridBoxes[i].classList.remove('grid-lines');
+    }
+  }
+  e.stopPropagation();
+}
+
+function drawColor(e) {
+  pencilMode ? drawBlack(e) : drawRandom(e);
 }
 
 function drawBlack(e) {
   e.target.style.backgroundColor = 'black';
+  e.stopPropagation();
 }
 
 function drawRandom(e) {
   e.target.style.backgroundColor = `rgb(${getRandomColor()},${getRandomColor()},${getRandomColor()})`;
+  e.stopPropagation();
 }
 
 function getRandomColor() {
