@@ -54,6 +54,7 @@ body {
   color: black;
   line-height: 32px;
   background-color: #BEE5BF;
+  transition: background-color 0.4s ease-out;
 }
 
 .control-btn:hover {
@@ -64,6 +65,7 @@ body {
 
 .active {
   background-color: #CE7DA5;
+  transition: background-color 0.4s ease-out;
 }
 
 .active:hover {
