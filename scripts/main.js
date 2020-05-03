@@ -1,4 +1,5 @@
 const DEFAULT_GRID_SIZE = 16;
+let mouseDraw;
 
 initializePage();
 
@@ -14,6 +15,7 @@ function initializeControlListeners() {
   let rainbowButton = document.getElementById('rainbow-btn');
   let precisionButton = document.getElementById('precision-btn');
   let eraserButton = document.getElementById('eraser-btn');
+  let drawingContainer = document.getElementById('container');
 
   resetButton.addEventListener('click', resetGrid);
   gridToggle.addEventListener('click', toggleGridLines);
@@ -39,6 +41,16 @@ function initializeControlListeners() {
     rainbowButton.classList.remove('active');
     e.stopPropagation();
   });
+
+  drawingContainer.addEventListener('mouseup', (e) => {
+    e.preventDefault();
+    mouseDraw = false;
+  });
+
+  drawingContainer.addEventListener('mousedown', (e) => {
+    e.preventDefault();
+    mouseDraw = true;
+  });
 }
 
 function initializeGrid(gridSize) {
@@ -56,11 +68,7 @@ function initializeGrid(gridSize) {
     for(let y=0; y<gridSize; y++) {
       let divBox = document.createElement('div');
       divBox.style.backgroundColor = 'white';
-      if(isPrecision) {
-        divBox.addEventListener('mousedown', drawColor);
-      } else {
-        divBox.addEventListener('mouseenter', drawColor);
-      }
+      divBox.addEventListener('mouseenter', drawColor);
       container.appendChild(divBox);
     }
   }
@@ -81,22 +89,9 @@ function resetGrid() {
 }
 
 function togglePrecisionMode(e) {
-  let gridBoxes = document.getElementById('container').children;
   let isActive = e.target.classList.contains('active');
   
-  if(isActive) e.target.classList.remove('active');
-  else e.target.classList.add('active');
-
-  for(let x=0; x<gridBoxes.length; x++) {
-    if(!isActive) { // not currently active, will activate after
-      gridBoxes[x].addEventListener('mousedown', drawColor);
-      gridBoxes[x].removeEventListener('mouseenter', drawColor);
-    }
-    else {
-      gridBoxes[x].removeEventListener('mousedown', drawColor);
-      gridBoxes[x].addEventListener('mouseenter', drawColor);
-    }
-  }
+  isActive ? e.target.classList.remove('active') : e.target.classList.add('active');
 }
 
 function toggleGridLines(e) {
@@ -147,10 +142,19 @@ function drawColor(e) {
   let pencilMode = document.getElementById('pencil-btn').classList.contains('active');
   let rainbowMode = document.getElementById('rainbow-btn').classList.contains('active');
   let eraserMode = document.getElementById('eraser-btn').classList.contains('active');
+  let isPrecisionMode = document.getElementById('precision-btn').classList.contains('active');
 
-  if(pencilMode) drawBlack(e);
-  if(rainbowMode) drawRandom(e);
-  if(eraserMode) drawWhite(e);
+  if(isPrecisionMode) {
+    if(mouseDraw) {
+      if(pencilMode) drawBlack(e);
+      if(rainbowMode) drawRandom(e);
+      if(eraserMode) drawWhite(e);
+    }
+  } else {
+    if(pencilMode) drawBlack(e);
+    if(rainbowMode) drawRandom(e);
+    if(eraserMode) drawWhite(e);
+  }
 }
 
 function drawBlack(e) {
