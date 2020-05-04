@@ -67,24 +67,22 @@ function initializeControlListeners() {
   });
 }
 
-function initializeGrid(gridSize) {
+function initializeGrid(gridSize, ...importArgs) {
   let container = document.getElementById('container');
   let isGridActive = document.getElementById('border-toggle').classList.contains('active');
-  let isPrecision = document.getElementById('precision-btn').classList.contains('active');
   if(gridSize < DEFAULT_GRID_SIZE) gridSize = DEFAULT_GRID_SIZE;
 
   container.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
   container.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
 
   clearGrid(container);
-
+  gridSize = gridSize**2;
   for(let x=0; x<gridSize; x++) {
-    for(let y=0; y<gridSize; y++) {
-      let divBox = document.createElement('div');
-      divBox.style.backgroundColor = COLOR_WHITE;
-      divBox.addEventListener('mouseenter', drawColor);
-      container.appendChild(divBox);
-    }
+    let divBox = document.createElement('div');
+    if(importArgs.length > 0) divBox.style.backgroundColor = importArgs[x];
+    else divBox.style.backgroundColor = COLOR_WHITE;
+    divBox.addEventListener('mouseenter', drawColor);
+    container.appendChild(divBox);
   }
 
   let gridBoxes = document.querySelectorAll('#container div'); // make sure to re-draw grid when reset
@@ -112,7 +110,7 @@ function toggleGridLines(e) {
   let gridBoxes = document.querySelectorAll('#container div');
   if(!e.target.classList.contains('active')) {
     e.target.classList.add('active');
-    drawGridLines(true, gridBoxes);
+    drawGridLines(gridBoxes);
   } else {
     e.target.classList.remove('active');
     for(let i=0; i<gridBoxes.length; i++) {
@@ -122,7 +120,7 @@ function toggleGridLines(e) {
   e.stopPropagation();
 }
 
-function drawGridLines(add, gridBoxes) {
+function drawGridLines(gridBoxes) {
   let gridSize = (gridBoxes.length)**(1/2) - 1;
   
   for(let i=0; i<gridBoxes.length; i++) {
@@ -204,4 +202,21 @@ function drawShader(e) {
 
 function getRandomColor() {
   return Math.random() * 255; // 0-255
+}
+
+function exportDrawing() {
+  let output = [];
+  let gridBoxes = document.querySelectorAll('#container div');
+  let gridSize = gridBoxes.length**(1/2);
+  output.push(gridSize);
+  for(let i=0;i<gridBoxes.length;i++) {
+    output.push(gridBoxes[i].style.backgroundColor);
+  }
+}
+
+function importDrawing(importText) {
+  let gridSize = importText.slice(0,input.indexOf(','));
+  let rgbColors = importText.slice(importText.indexOf(',')+1).split(',');
+
+  initializeGrid(gridSize, rgbColors);
 }

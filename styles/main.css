@@ -114,6 +114,12 @@ body {
   background-color: rgb(252, 149, 200);
 }
 
+#main-footer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 #footer-box {
   display: inline-block;
   padding: 15px;
