@@ -86,7 +86,7 @@ function initializeGrid(gridSize, ...importArgs) {
   }
 
   let gridBoxes = document.querySelectorAll('#container div'); // make sure to re-draw grid when reset
-  if(isGridActive) drawGridLines(true, gridBoxes);
+  if(isGridActive) drawGridLines(gridBoxes);
 }
 
 function clearGrid(gridContainer) {
