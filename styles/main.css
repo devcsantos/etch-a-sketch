@@ -18,6 +18,46 @@ body {
   background-color: #FFD1BA;
 }
 
+#popup-box {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hide-display {
+  display: none;
+}
+
+#popup-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #00000069;
+}
+
+#popup-controls {
+  display: flex;
+  width: 600px;
+  margin: 20px 0px;
+}
+
+#hide-btn {
+  margin-left: auto;
+}
+
+#import-export {
+  min-width: 600px;
+  min-height: 300px;
+}
+
 #main-header {
   background-color: #493657;
   margin-bottom: 50px;
@@ -44,7 +84,6 @@ body {
 .grid-lines {
   border: solid 1px #DDDDDD;
 }
-
 
 .control-btn {
   display: inline-block;
@@ -103,6 +142,10 @@ body {
 
 #shader-btn:hover ~ #control-information:after {
   content: 'Keeps getting darker and darker until you can no longer see';
+}
+
+#extra-btn:hover ~ #control-information:after {
+  content: 'Extra controls to share your sketch!';
 }
 
 .active {

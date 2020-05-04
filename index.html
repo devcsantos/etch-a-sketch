@@ -7,6 +7,16 @@
   </head>
 
   <body>
+    <div id="popup-box" class="hide-display">
+      <div id="popup-container">
+        <div id="popup-controls">
+          <a class="control-btn" id="import-btn">Import Drawing</a>
+          <a class="control-btn" id="export-btn">Export Drawing</a>
+          <a class="control-btn" id="hide-btn">X</a>
+        </div>
+        <textarea id="import-export"></textarea>
+      </div>
+    </div>
     <header id="main-header">
       <h3>Etch-A-Sketch</h3>
     </header>
@@ -18,8 +28,9 @@
       <a class="control-btn" id="eraser-btn">Eraser</a>
       <a class="control-btn" id="precision-btn">Precision Mode</a>
       <a class="control-btn" id="border-toggle">Toggle Grid Lines</a>
+      <a class="control-btn" id="extra-btn">Extra</a>
       <br>
-      <div id='control-information'><span></span></div>
+      <div id='control-information'></div>
     </div>
     <div id="container"></div>
     <footer id="main-footer">
