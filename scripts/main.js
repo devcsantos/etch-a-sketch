@@ -102,6 +102,7 @@ function initializeGrid(gridSize, importArgs = []) {
     if(importArgs.length > 0) divBox.style.backgroundColor = importArgs[x];
     else divBox.style.backgroundColor = COLOR_WHITE;
     divBox.addEventListener('mouseenter', drawColor);
+    divBox.addEventListener('mousedown', drawColor);
     container.appendChild(divBox);
   }
 
@@ -170,7 +171,7 @@ function drawGridLines(gridBoxes) {
 
 function drawColor(e) {
   e.preventDefault();
-
+  console.log(e);
   let pencilMode = document.getElementById('pencil-btn').classList.contains('active');
   let rainbowMode = document.getElementById('rainbow-btn').classList.contains('active');
   let eraserMode = document.getElementById('eraser-btn').classList.contains('active');
@@ -178,7 +179,7 @@ function drawColor(e) {
   let isPrecisionMode = document.getElementById('precision-btn').classList.contains('active');
 
   if(isPrecisionMode) {
-    if(mouseDraw) {
+    if(mouseDraw || e.type == 'mousedown') {
       if(pencilMode) drawBlack(e);
       if(rainbowMode) drawRandom(e);
       if(eraserMode) drawWhite(e);
@@ -190,7 +191,6 @@ function drawColor(e) {
     if(eraserMode) drawWhite(e);
     if(shaderMode) drawShader(e);
   }
-  e.stopPropagation();
 }
 
 function drawBlack(e) {
