@@ -200,7 +200,6 @@ function drawShader(e) {
   newB >= 0 ? newB = newB : newB = 0;
 
   e.target.style.backgroundColor = `rgb(${newR},${newG},${newB})`;
-  console.log(e.target.style.backgroundColor);
 }
 
 function getRandomColor() {
