@@ -118,7 +118,7 @@ function clearGrid(gridContainer) {
 
 function resetGrid() {
   let gridSize = window.prompt(`How many squares per side? Default/Minimum is ${DEFAULT_GRID_SIZE}`);
-  gridSize ? initializeGrid(gridSize) : initializeGrid(DEFAULT_GRID_SIZE);
+  if(gridSize !== null) gridSize ? initializeGrid(gridSize) : initializeGrid(DEFAULT_GRID_SIZE);
 }
 
 function togglePrecisionMode(e) {
